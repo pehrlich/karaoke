@@ -1,10 +1,13 @@
 Karaoke::Application.routes.draw do
   resources :jams
 
-  match 'watch' => 'jams#page1', :as => 'page1'
+  match 'intro' => 'jams#page1', :as => 'page1'
   match 'record' => 'jams#page2', :as => 'page2'
+  #match 'watch' => 'jams#page3', :as => 'page3'
 
-  root :to => "jams#page2"
+  post 'save' => 'jams#save'
+
+  root :to => "jams#page1"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

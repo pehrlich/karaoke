@@ -18,21 +18,38 @@ words =[
 
 ]
 
-$.fn.qcard = (words) ->
-  qcard = this
-  totalOffset = 5000 # px
-  totalTime = 1000 * 60 # msec
-  rate =  totalOffset  / totalTime # px/msec
-  for word in words
-    do (word) ->
-      console.log word, word.str, word.time
-      wordOffset = rate * word.time * 1000 # px/msec * sec * (msec/sec)
-      speed = 400
-      qcard .append("<div style='left: #{wordOffset}px' class='word'>#{word.str}</div>")
-  this.bind 'qcard:start', () ->
-    $(this).css({left: '0px'}).animate({left: "-#{totalOffset}px" }, totalTime , 'linear')
+
 
 $ () ->
+
+  $.fn.qcard = (words) ->
+    console.log 'qcard'
+    qcard = this
+    totalOffset = 5000 # px
+    totalTime = 1000 * 60 # msec
+    rate =  totalOffset  / totalTime # px/msec
+    for word in words
+      do (word) ->
+        console.log word, word.str, word.time
+        wordOffset = rate * word.time * 1000 # px/msec * sec * (msec/sec)
+        speed = 400
+        qcard .append("<div style='left: #{wordOffset}px' class='word'>#{word.str}</div>")
+
+    this.bind 'qcard:start', () ->
+      $(this).animate({left: "-#{totalOffset}px" }, totalTime , 'linear')
+      $('#qaudio').get(0).play()
+
+    this.bind 'qcard:stop', () ->
+      $(this).stop()
+      $('#qaudio').get(0).pause()
+
+    this.bind 'qcard:restart', () ->
+      $(this).trigger 'qcard:stop'
+      $('#qaudio').get(0).currentTime = 0
+      $(this).css({left: '0px'})
+      $(this).trigger 'qcard:start'
+
+
   $('#qcard').qcard(words)
 
   $('[data-control]').live 'click', () ->

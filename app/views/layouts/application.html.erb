@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Karaoke</title>
+  <title><%= @title %> - The 50 States Song | The House of Rock</title>
   <script type="text/javascript">
     var archive1 = "";
     var archive2 = "";
-    var projectID = "asdf";
+    var projectID = "700";
   </script>
   <%= stylesheet_link_tag "application" %>
+
   <%= javascript_include_tag "http://staging.tokbox.com/v0.91/js/TB.min.js" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -37,11 +38,11 @@
 <body>
 
 
-<div class="wrapper">
+<!--<div class="wrapper">-->
 
   <%= yield %>
 
-</div>
+<!--</div>-->
 
 </body>
 </html>

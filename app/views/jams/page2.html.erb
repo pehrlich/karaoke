@@ -2,7 +2,11 @@
 
 </div>
 
-<button data-action="qcard:start" data-control="#qcard">Q</button>
+<audio id="qaudio" src="/assets/music/adam-mix.mp3" controls preload="auto" autobuffer></audio>
+
+<button data-action="qcard:start" data-control="#qcard">Start</button>
+<button data-action="qcard:stop" data-control="#qcard">Stop</button>
+<button data-action="qcard:restart" data-control="#qcard">Restart</button>
 
 <h1>Logo</h1>
 
@@ -13,3 +17,9 @@
 
 
 <%= link_to 'watch', page1_path %>
+
+
+<%= form_for :jam, :url  => '/save' do |f| %>
+  <%= f.hidden_field :archive_id, {:value => 'test_id'} %>
+  <%= f.submit %>
+<% end %>
