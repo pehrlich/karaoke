@@ -1,0 +1,190 @@
+html, body {
+	height: 100%;
+	background-image:url('chalkboardbg.jpg');
+	background-repeat:repeat-y repeat-x;
+	margin:0;
+	padding:0;
+}
+
+/* FONTS */
+
+@font-face {
+    font-family: 'BlueHighwayCondensedRegular';
+    src: url('fonts/bluecond-webfont.eot');
+    src: url('fonts/bluecond-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/bluecond-webfont.woff') format('woff'),
+         url('fonts/bluecond-webfont.ttf') format('truetype'),
+         url('fonts/bluecond-webfont.svg#BlueHighwayCondensedRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'BlueHighwayDTypeRegular';
+    src: url('fonts/bluehigd-webfont.eot');
+    src: url('fonts/bluehigd-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/bluehigd-webfont.woff') format('woff'),
+         url('fonts/bluehigd-webfont.ttf') format('truetype'),
+         url('fonts/bluehigd-webfont.svg#BlueHighwayDTypeRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'BlueHighwayRegular';
+    src: url('fonts/bluehigh-webfont.eot');
+    src: url('fonts/bluehigh-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/bluehigh-webfont.woff') format('woff'),
+         url('fonts/bluehigh-webfont.ttf') format('truetype'),
+         url('fonts/bluehigh-webfont.svg#BlueHighwayRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* BORDER ELEMENTS */
+
+.separator
+{
+	height:9px;
+	background-image:url('barbg.png');
+	background-repeat:repeat-x;
+	background-position:center;
+	width:100%;
+}
+
+/* TEXT STYLING */
+
+
+h1
+{
+	color:#FFF;
+	font-family:'BlueHighwayDTypeRegular';
+	letter-spacing:2px;
+	font-size:30px;
+	margin:0px;
+	padding:0;
+}
+
+.p_lyrics
+{
+	font-family:BlueHighwayDTypeRegular;
+	font-size:20px;
+	color:#FFF;
+	letter-spacing:1px;
+	margin:0;
+	padding:5px 0;
+}
+
+
+/* HOME STYLING */
+
+#container 
+{
+	overflow:auto;
+	height:100%;
+	width:100%;
+	background-image:url('curtains.jpg');
+	background-repeat:no-repeat;
+	background-size:100%;
+	text-align:center;
+	overflow:hidden;
+}
+
+#homeheader
+{
+	text-align:center;
+	margin:0;
+	padding:5px 0 0 0;
+	background-image:url('chalkboardbg.jpg');
+	background-repeat:repeat-x repeat-y;
+}
+
+#videoframe
+{
+	background-image:url('borderhome.jpg');
+	width:849px;
+	height:492px;
+	margin:10px auto 0 auto;
+}
+
+#songtitle
+{
+	position:absolute;
+	top:0px;
+	margin:0 auto;
+	text-align:left;
+	width:800px;
+	margin:0 0 0 40px;
+	padding:0;
+	top:125px;
+	z-index:100;
+}
+
+#video
+{
+	width:800px;
+	height:450px;
+	margin:0 auto;
+	position:relative;
+	top:20px;
+	background-color:#CCC;
+}
+
+#practice
+{
+	margin:15px 0;
+}
+
+/* SOUNDBOOTH STYLING */
+
+#sb_container 
+{
+	overflow:auto;
+	height:100%;
+	width:100%;
+	background-image:url('soundboothbg.jpg');
+	background-repeat:no-repeat;
+	background-size:100%;
+	text-align:center;
+	overflow:hidden;
+}
+
+#boothheader
+{
+	text-align:center;
+	margin:0;
+	padding:0;
+	background-image:url('chalkboardbg.jpg');
+	background-repeat:repeat-x repeat-y;
+}
+
+#sbtitle
+{
+	padding:0;
+	margin:0;
+	text-align:center;
+}
+
+#sb_songtitle
+{
+	position:absolute;
+	top:0px;
+	margin:0 auto;
+	text-align:left;
+	width:800px;
+	margin:0 0 0 40px;
+	padding:0;
+	top:125px;
+	z-index:100;
+}
+
+#sb_videoframe
+{
+	background-image:url('sbborder.png');
+	width:849px;
+	height:492px;
+	margin:10px auto 0 auto;
+}

@@ -1,3 +1,27 @@
-<iframe width="560" height="315" src="http://www.youtube.com/embed/JrQ8ptReidg" frameborder="0" allowfullscreen></iframe>
+<div id="container">
 
-<%= link_to 'record', page2_path %>
+  <div id="homeheader">
+    <img src="assets/title2.png"/>
+  </div>
+  <!-- homeheader -->
+  <div class="separator">
+  </div>
+  <!-- seperator -->
+
+  <div id="videoframe">
+
+    <%= render :partial => 'youtube' %>
+
+  </div>
+  <!-- videoframe -->
+
+  <div id="practice">
+    <a href="<%= page2_path %>"><img src="assets/practicebutton.png"/></a>
+  </div>
+
+</div><!-- container -->
+
+
+
+
+

@@ -17,3 +17,9 @@
 
 
 <%= link_to 'watch', page1_path %>
+
+
+<%= form_for :jam, :url  => '/save' do |f| %>
+  <%= f.hidden_field :archive_id, {:value => 'test_id'} %>
+  <%= f.submit %>
+<% end %>
