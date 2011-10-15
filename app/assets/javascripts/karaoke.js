@@ -34,6 +34,7 @@ $(document).ready(function() {
   // use myArchives.length instead?
   if (!myArchives.archive1 && !myArchives.archive2) {
     // new project
+    console.log('new project');
     recordPane = 1;
     recorder = recorderManager.displayRecorder(TOKEN, 'video1');
     recorder.addEventListener('archiveSaved', archiveSavedHandler);
