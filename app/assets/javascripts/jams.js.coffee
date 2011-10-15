@@ -19,7 +19,6 @@ words =[
 ]
 
 $.fn.qcard = (words) ->
-  console.log 'qcard init', words
   qcard = this
   totalOffset = 5000 # px
   totalTime = 1000 * 60 # msec
@@ -31,7 +30,7 @@ $.fn.qcard = (words) ->
       speed = 400
       qcard .append("<div style='left: #{wordOffset}px' class='word'>#{word.str}</div>")
   this.bind 'qcard:start', () ->
-    $(this).animate({left: "-#{totalOffset}px" }, totalTime , 'linear')
+    $(this).css({left: '0px'}).animate({left: "-#{totalOffset}px" }, totalTime , 'linear')
 
 $ () ->
   $('#qcard').qcard(words)
