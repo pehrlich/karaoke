@@ -2,13 +2,40 @@
 <html>
 <head>
   <title>Karaoke</title>
-  <%= stylesheet_link_tag    "application" %>
+  <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
+  <style type="text/css">
+    .wrapper{
+      width: 600px;
+      margin: 0px auto;
+      overflow-x: hidden;
+    }
+
+    #qcard{
+      height: 50px;
+      width: 5000px;
+      text-align: left;
+      font-size: 2em;
+      position: relative;
+    }
+    #qcard .word{
+      position: absolute;
+      top: 10px;
+      left: 0px;
+    }
+  </style>
 </head>
+
 <body>
 
-<%= yield %>
+
+<div class="wrapper">
+
+  <%= yield %>
+
+</div>
 
 </body>
 </html>

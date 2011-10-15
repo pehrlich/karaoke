@@ -1,4 +1,8 @@
 Karaoke::Application.routes.draw do
+  resources :jams
+
+  root :to => "jams#page2"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
