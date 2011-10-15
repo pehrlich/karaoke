@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var API_KEY = '5933671l';
+  var API_KEY = '5959221';
   var TOKEN = 'moderator_token';
   var recorderManager;
   var recorder;

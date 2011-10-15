@@ -4,7 +4,7 @@ Karaoke::Application.routes.draw do
   match 'watch' => 'jams#page1', :as => 'page1'
   match 'record' => 'jams#page2', :as => 'page2'
 
-  root :to => "jams#page2"
+  root :to => "jams#page1"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
