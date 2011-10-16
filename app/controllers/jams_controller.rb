@@ -50,6 +50,12 @@ class JamsController < ApplicationController
     if @jam.save
       session[:my_jam_id] = @jam.id
       session[:my_archive_id] = attributes[:archive_id]
+
+
+
+      # save arhive backup
+      Plam.create(attributes)
+
       respond_with @jam
     else
       logger.warn "Error saving Jam."
