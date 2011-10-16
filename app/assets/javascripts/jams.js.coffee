@@ -4,53 +4,67 @@
 
 
 
-words =[
-  {
-    str: "Alabama",
-    time: 0.0
-  },{
-    str: "Alaska",
-    time: 2
-  },{
-    str: "Arizona",
-    time: 5.0
-  }
+$.fn.qcard = (words, offset) ->
+  qcard = this
+  totalOffset = 14722 # px
+  # $('#boothheader > div:last').css('left') --  14600
+  # $('#boothheader > div:last').width()           122
 
-]
+  # 13000 just a shy too slow, about 800px loss over 13000 = 16%
+  totalTime = 1000 * 73 # msec
+  rate =  totalOffset  / totalTime # px/msec
 
+  #todo: unbind all
+  this.html('') # no workie
+  console.log(this, this.html())
+
+  factor = 1000 * 0.2
+
+  for word in words
+    do (word) ->
+      console.log word, word.text, word.time
+      wordOffset = factor * (word.time.begin + 5) # px/msec * sec * (msec/sec)
+      length = ( word.time.end - word.time.begin ) * factor
+      console.log('offset, length', wordOffset, length)
+
+      qcard.append("<div style='left: #{wordOffset}px; min-width: #{length}px' class='word'>#{word.text}</div>")
+
+
+
+  this.bind 'qcard:start', () ->
+    console.log 'qcard starting'
+    $(this).animate({left: "-#{totalOffset}px" }, totalTime , 'linear')
+    setTimeout( () ->
+      console.log 'starting audio'
+      $('#qaudio').get(0).play()
+    ,3000)
+
+
+    $('[data-action="qcard:start"]').hide()
+    $('[data-action="qcard:stop"]').show()
+
+  this.bind 'qcard:stop', () ->
+    console.log 'qcard stopping'
+    $(this).stop()
+    $('#qaudio').get(0).pause()
+
+    $('[data-action="qcard:stop"]').hide()
+    $('[data-action="qcard:start"]').show()
+
+  this.bind 'qcard:reset', () ->
+    console.log 'qcard resetting'
+    $('#qaudio').get(0).currentTime = 0
+    $(this).stop().css({left: '0px'})
+
+  this.bind 'qcard:restart', () ->
+    console.log 'qcard restarting'
+    $(this).trigger 'qcard:stop'
+    $('#qaudio').get(0).currentTime = 0
+    $(this).css({left: '0px'})
+    $(this).trigger 'qcard:start'
 
 
 $ () ->
-
-  $.fn.qcard = (words) ->
-    console.log 'qcard'
-    qcard = this
-    totalOffset = 5000 # px
-    totalTime = 1000 * 60 # msec
-    rate =  totalOffset  / totalTime # px/msec
-    for word in words
-      do (word) ->
-        console.log word, word.str, word.time
-        wordOffset = rate * word.time * 1000 # px/msec * sec * (msec/sec)
-        speed = 400
-        qcard .append("<div style='left: #{wordOffset}px' class='word'>#{word.str}</div>")
-
-    this.bind 'qcard:start', () ->
-      $(this).animate({left: "-#{totalOffset}px" }, totalTime , 'linear')
-      $('#qaudio').get(0).play()
-
-    this.bind 'qcard:stop', () ->
-      $(this).stop()
-      $('#qaudio').get(0).pause()
-
-    this.bind 'qcard:restart', () ->
-      $(this).trigger 'qcard:stop'
-      $('#qaudio').get(0).currentTime = 0
-      $(this).css({left: '0px'})
-      $(this).trigger 'qcard:start'
-
-
-  $('#qcard').qcard(words)
 
   $('[data-control]').live 'click', () ->
     selector = $(this).data('control')
@@ -58,6 +72,31 @@ $ () ->
     console.log selector, event
     $(selector).trigger(event)
     false
+
+  $("#record_blocker").live 'click', () ->
+#    alert('Start Q first')
+    $("#boothheader").css({color: 'yellow'})
+    setTimeout(() ->
+      $("#boothheader").css({color: 'white'})
+    , 200)
+
+
+
+window.Timer = (callback, timeout) ->
+  timerId
+  remaining = timeout
+
+  this.pause = () ->
+    clearTimeout(timerId)
+    remaining -= new Date() - start;
+
+  this.resume = () ->
+    start = new Date()
+    timerId = setTimeout(callback, remaining)
+
+  this.resume()
+
+
 
 
 

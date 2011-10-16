@@ -1,25 +1,211 @@
-<div id="qcard">
-
-</div>
-
-<audio id="qaudio" src="/assets/music/adam-mix.mp3" controls preload="auto" autobuffer></audio>
-
-<button data-action="qcard:start" data-control="#qcard">Start</button>
-<button data-action="qcard:stop" data-control="#qcard">Stop</button>
-<button data-action="qcard:restart" data-control="#qcard">Restart</button>
-
-<h1>Logo</h1>
-
-<div id="main">
-
-</div>
-
-
-
-<%= link_to 'watch', page1_path %>
-
-
-<%= form_for :jam, :url  => '/save' do |f| %>
-  <%= f.hidden_field :archive_id, {:value => 'test_id'} %>
-  <%= f.submit %>
+<% content_for :title do %>
+  Soundbooth
 <% end %>
+
+<% content_for :header do %>
+  <script type="text/javascript">
+    $(function() {
+      showRecorder();
+
+      $("ul#hover2 span").css("opacity", "0");
+      $("ul#hover2 span").hover(function () {
+          $(this).stop().animate({
+            opacity: 1
+          }, "slow");
+        },
+        function () {
+          $(this).stop().animate({
+            opacity: 0
+          }, "slow");
+        });
+
+      window.words = srt2json.parse($("#lyrics_srt").html());
+    });
+  </script>
+
+  <style type="text/css">
+    .word {
+      border-bottom: 2px solid white;
+    }
+
+    .hud{
+      margin-left: 100px;
+    }
+
+    #boothheader {
+      min-width: 16000px;
+      height: 44px;
+      text-align: left;
+      font-size: 2em;
+      position: relative;
+    }
+
+    #boothheader .word {
+      position: absolute;
+      top: 10px;
+      left: 0px;
+    }
+
+    #bar {
+      width: 2px;
+      height: 100%;
+      background-color: rgba(222, 222, 222, 0.9);
+      position: absolute;
+      top: 0;
+      left: 100px;
+      z-index: 1;
+    }
+
+    #fader_left {
+      width: 40px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+
+
+      /* http://www.colorzilla.com/gradient-editor/ */
+      background: -moz-linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+      background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, 0)));
+      background: -webkit-linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+      background: -o-linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+      background: -ms-linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#000000', endColorstr = '#00000000', GradientType = 1);
+      background: linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    #fader_right {
+      width: 40px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1;
+
+      background: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+      background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 1)));
+      background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+      background: -o-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+      background: -ms-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#00000000', endColorstr = '#000000', GradientType = 1);
+      background: linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+    }
+
+
+  </style>
+<% end %>
+
+<audio id="qaudio" src="/assets/music/adam-mix.mp3" preload="auto" autobuffer></audio>
+<audio id="beep_audio" src="/assets/sound/beep.wav" preload="auto" autobuffer></audio>
+
+
+<button data-action="qcard:reset" data-control="#boothheader">Reset</button>
+<button data-action="qcard:start" style="display: none;" data-control="#boothheader">&#9656;</button>
+<button data-action="qcard:stop" data-control="#boothheader">&#10073; &#10073;</button>
+
+
+<div id="sb_container">
+
+  <div style="background-color: black;">
+    <div style="width: 800px; margin: 0px auto; overflow-x: hidden; position: relative;">
+
+      <div id="fader_left"></div>
+      <div id="fader_right"></div>
+
+      <div id="bar"></div>
+
+      <div id="boothheader" class="p_lyrics clickable">
+        <div style="padding-left: 100px;">Click "allow" and then here to begin karaoke.</div>
+      </div>
+
+      <script type="text/javascript">
+        delayHtml = function(html, seconds) {
+          setTimeout(function() {
+            $('#boothheader').html(html);
+            $("#beep_audio").get(0).play()
+          }, seconds * 1000)
+        }
+
+        $('#boothheader').bind('click', function() {
+          $('#boothheader').unbind('click')
+
+          $('#boothheader').html('<div class="hud">Click record in..</div>')
+          delayHtml('<div class="hud">3</div>', 1)
+          delayHtml('<div class="hud">2</div>', 2)
+          delayHtml('<div class="hud">1</div>', 3)
+          delayHtml('<div class="hud">click!', 4)
+          setTimeout(function() {
+            $("#record_blocker").hide();
+          }, 4000);
+          setTimeout(function() {
+            $('#boothheader').removeClass('clickable').qcard(window.words);
+            $('#boothheader').trigger('qcard:start')
+
+          }, 5000);
+
+
+        });
+      </script>
+    </div>
+  </div>
+
+
+  <div class="separator">
+  </div>
+  <div id="sbtitle">
+    <img src="assets/sbtitle.png"/>
+  </div>
+  <div id="sb_videoframe">
+    <div id="sb_songtitle">
+
+    </div>
+    <div id="sb_video">
+      <img src="assets/soundbooth_vid.jpg" style="position: absolute;top: 0; z-index: -1;"/>
+
+      <div id="record_blocker" style="width: 100%; height: 45px; position: absolute; bottom: 0; left: 0; z-index: 99; background-color: rgba(0,0,0,0.5);">
+
+      </div>
+
+
+      <div id="opentok_recorder">
+
+      </div>
+    </div>
+  </div>
+
+
+  <ul id="hover2">
+
+    <li><a href="<%= page1_path %>" class="backglow"><span></span></a></li>
+    <li>
+      <a href="#" onclick="save_jam.submit();" class="performglow"><span></span></a>
+    </li>
+  </ul>
+
+
+  <%= form_for :jam, {:url => '/save', :html => {:id => 'save_jam'}} do |f| %>
+    <%= f.hidden_field :previous_archive_id, {:value => session[:my_archive_id]} %>
+    <%= f.hidden_field :jam_id, {:value => session[:my_jam_id]} %>
+
+    <%= f.hidden_field :new_archive_id %>
+
+    <%#= f.submit 'abc', {:TYPE => "image", :SRC => "assets/performbutton.png"} %>
+  <% end %>
+
+  <script type="text/javascript">
+    $("#save_jam").validate(
+      {
+        submitHandler: function() {
+          console.log($('#jam_new_archive_id').val().length)
+          if ($('#jam_new_archive_id').val().length === 0) {
+            alert('Record your take, first!');
+          } else {
+            $("#save_jam").get(0).submit();
+          }
+        }})
+  </script>
+
+</div>
+
+<%= render :partial => "lyrics" %>

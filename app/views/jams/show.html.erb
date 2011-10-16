@@ -1,6 +1,137 @@
-<%= render :partial => 'youtube' %>
+<% content_for :header do %>
+  <script type="text/javascript">
+    $(function() {
+      Shadowbox.init({
+        language: 'en',
+        players:  ['html']
+      });
+    });
+  </script>
 
--- code for box here (<%= @jam.archive_id %>) --
+  <style type="text/css">
+    .bg-videogroup {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
-<%= link_to 'create account / save / invite friend to jam' %>
-<%= link_to 'back to record', page2_path %>
+    object {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+  </style>
+<% end %>
+
+<% content_for :title do %>
+  title
+<% end %>
+
+
+
+
+<div id="container">
+
+  <div id="homeheader">
+    <img src="/assets/title2.png"/>
+  </div>
+  <div class="separator">
+  </div>
+
+  <div class="video_row">
+
+    <div class="videoframe_group">
+      <div class="video_group">
+        <%= render :partial => 'youtube', :locals => {:width => '364px', :height => '205px', :margin => '0px'} %>
+      </div>
+    </div>
+
+    <% show_record_link = true
+       (0..2).each do |index| %>
+      <% archive = @jam.archives[index] %>
+      <div class="videoframe_group">
+        <div class="video_group">
+          <% if archive.nil? %>
+
+            <% if show_record_link
+                 show_record_link = false %>
+
+              <%= form_for :jam, {:url => join_jam_path(@jam), :html => {:id => 'join_jam'}} do |f| %>
+                <%= f.submit 'join', {:type => "image", :SRC => "/assets/recordyourown.jpg"} %>
+              <% end %>
+
+
+
+            <% else %>
+              <a href="invite" rel="shadowbox;width=550;height=350"><img class="bg-videogroup" src="/assets/invite.jpg"/></a>
+            <% end %>
+
+
+          <% else %>
+            <% if  archive["archive_id"] == session[:my_archive_id] || (current_user && archive["user_id"] == current_user.id)
+                 show_record_link = false
+               end %>
+            <div id="opentok<%= index+1 %>"></div>
+
+            <script type="text/javascript">
+              showPlayer("<%= archive["archive_id"] %>", "opentok<%= index + 1 %>");
+            </script>
+
+          <% end %>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+  <div style="clear: both;"></div>
+
+  <div id="addthis" style="margin-top: 10px;">
+    <div style="float:left;position:relative;left:40px;">
+      <h1 style="font-size:25px;">THIS IS SO AWESOME, TELL THE WORLD!</h1></div>
+    <div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="position:relative;left:65px;float:left;width:300px;">
+      <a class="addthis_button_preferred_1"></a>
+      <a class="addthis_button_preferred_2"></a>
+      <a class="addthis_button_preferred_3"></a>
+      <a class="addthis_button_preferred_4"></a>
+      <a class="addthis_button_compact"></a>
+      <a class="addthis_counter addthis_bubble_style"></a>
+    </div>
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dadd8131fbd7441"></script>
+  </div>
+</div>
+
+
+
+
+
+<!--
+<% unless session[:my_jam].present? and session[:my_archive].present? %>
+  <%= link_to 'join this jam', page2_path %>
+<% else %>
+  <%= link_to 'back to record', page2_path %>
+  <%= link_to 'create account / save / invite friend to jam' %>
+<% end %>
+
+
+
+
+
+
+
+<%= form_for("user", {:url => user_registration_path, :html => {:id => 'registration_form'}}) do |f| %>
+  <%= f.text_field :email, :placeholder => 'donnie@gmail.com', :class => 'required' %>
+  <br/><%= f.password_field :password, :placeholder => 'password', :class => 'required', :minlength => "6" %>
+  <br/><%= f.password_field :confirm_password, :placeholder => 'confirm password', :class => 'required', :minlength => "6", :equalTo => "#user_password" %>
+  <br/><%= f.submit 'Sign up' %>
+<% end %>
+
+-->
+
+<script type="text/javascript">
+
+  $("#registration_form").validate();
+
+</script>

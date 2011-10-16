@@ -22,7 +22,7 @@ gem "bson_ext", '1.4.0' # v here must match mongo version
 
 gem "inherited_resources"
 
-#gem "devise"
+gem "devise"
 #gem "simple_form"
 
 # To use ActiveModel has_secure_password

@@ -1,1 +1,12 @@
-<iframe width="560" height="315" src="http://www.youtube.com/embed/JrQ8ptReidg" frameborder="0" allowfullscreen></iframe>
+<%
+   width ||= '800px'
+   height ||= '450px'
+   margin ||= '20px'
+%>
+
+<iframe
+src="http://www.youtube.com/embed/JrQ8ptReidg"
+frameborder="0"
+allowfullscreen
+style="width: <%= width %>;height: <%= height %>;margin: <%= margin %>;"
+></iframe>

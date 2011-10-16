@@ -1,4 +1,27 @@
+<% content_for :title do %>
+  Home
+<% end %>
+
+<% content_for :header do %>
+  <script type="text/javascript">
+	$(function() {
+		$("ul#hover span").css("opacity","0");
+		$("ul#hover span").hover(function () {
+			$(this).stop().animate({
+				opacity: 1
+			});
+		},
+		function () {
+			$(this).stop().animate({
+				opacity: 0
+			});
+		});
+	});
+</script>
+<% end %>
+
 <div id="container">
+
 
   <div id="homeheader">
     <img src="assets/title2.png"/>
@@ -16,7 +39,11 @@
   <!-- videoframe -->
 
   <div id="practice">
-    <a href="<%= page2_path %>"><img src="assets/practicebutton.png"/></a>
+
+    <ul id="hover">
+      <li><a href="<%= page2_path %>" class="soundboothglow"><span></span></a></li>
+    </ul>
+
   </div>
 
 </div><!-- container -->

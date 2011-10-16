@@ -1,9 +1,15 @@
 Karaoke::Application.routes.draw do
-  resources :jams
+  devise_for :users
+
+  resources :jams do
+    member do
+      post 'join' => 'jams#join', :as => 'join'
+    end
+  end
 
   match 'intro' => 'jams#page1', :as => 'page1'
   match 'record' => 'jams#page2', :as => 'page2'
-  #match 'watch' => 'jams#page3', :as => 'page3'
+
 
   post 'save' => 'jams#save'
 

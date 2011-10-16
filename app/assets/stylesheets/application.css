@@ -5,3 +5,7 @@
  *= require_self
  *= require_tree . 
 */
+
+form{ /* seems to do nothing */
+  display: inline-block;
+}

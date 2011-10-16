@@ -1,38 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= @title %> - The 50 States Song | The House of Rock</title>
-  <script type="text/javascript">
-    var archive1 = "";
-    var archive2 = "";
-    var projectID = "700";
-  </script>
-  <%= stylesheet_link_tag "application" %>
+  <title><%= yield :title %> - The 50 States Song | The House of Rock</title>
 
-  <%= javascript_include_tag "http://staging.tokbox.com/v0.91/js/TB.min.js" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "application" %>
   <%= csrf_meta_tags %>
 
-  <style type="text/css">
-    .wrapper{
-      width: 600px;
-      margin: 0px auto;
-      overflow-x: hidden;
-    }
+  <%= javascript_include_tag "http://staging.tokbox.com/v0.91/js/TB.min.js" %>
 
-    #qcard{
-      height: 50px;
-      width: 5000px;
-      text-align: left;
-      font-size: 2em;
-      position: relative;
-    }
-    #qcard .word{
-      position: absolute;
-      top: 10px;
-      left: 0px;
+  <%= javascript_include_tag "application" %>
+
+  <script type="text/javascript">
+    <%= raw "console.log('logged in as #{current_user.inspect}');" %>
+  </script>
+
+  <style type="text/css">
+    .clickable{
+      cursor: pointer;
     }
   </style>
+
+  <%= yield :header %>
+
+
 </head>
 
 <body>
