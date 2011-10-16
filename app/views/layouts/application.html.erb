@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= yield :title %> - The 50 States Song | The House of Rock</title>
+  <title><%= yield :title %> - The 50 States Song | I'm In The Band</title>
 
   <%= stylesheet_link_tag "application" %>
   <%= csrf_meta_tags %>
 
   <%= javascript_include_tag "http://staging.tokbox.com/v0.91/js/TB.min.js" %>
+
+
+  <script type="text/javascript">
+    if (!console || !console.log){
+      window.console = {log:function(){}}
+    }
+  </script>
+
 
   <%= javascript_include_tag "application" %>
 

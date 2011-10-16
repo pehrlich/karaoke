@@ -25,15 +25,16 @@
 
   <style type="text/css">
     .word {
-      border-bottom: 2px solid white;
+      border-bottom: 4px solid white;
     }
 
-    .hud{
+
+    .hud {
       margin-left: 100px;
     }
 
     #boothheader {
-      min-width: 16000px;
+      min-width: 22750px;
       height: 44px;
       text-align: left;
       font-size: 2em;
@@ -46,14 +47,36 @@
       left: 0px;
     }
 
-    #bar {
-      width: 2px;
+    #fader {
+      width: 300px;
       height: 100%;
-      background-color: rgba(222, 222, 222, 0.9);
+      background-color: rgba(0, 0, 0, 0.4);
       position: absolute;
       top: 0;
-      left: 100px;
+      left: 0px;
       z-index: 1;
+
+      display: none;
+    }
+
+    #fader_fader {
+      width: 40px;
+      height: 100%;
+
+      position: absolute;
+      top: 0;
+      left: 300px;
+      z-index: 1;
+
+      background: -moz-linear-gradient(left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+      background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(0, 0, 0, 0.4)), color-stop(100%, rgba(0, 0, 0, 0)));
+      background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+      background: -o-linear-gradient(left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+      background: -ms-linear-gradient(left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#66000000', endColorstr = '#00000000', GradientType = 1);
+      background: linear-gradient(left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+
+      display: none;
     }
 
     #fader_left {
@@ -63,7 +86,6 @@
       top: 0;
       left: 0;
       z-index: 1;
-
 
       /* http://www.colorzilla.com/gradient-editor/ */
       background: -moz-linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
@@ -113,7 +135,8 @@
       <div id="fader_left"></div>
       <div id="fader_right"></div>
 
-      <div id="bar"></div>
+      <div id="fader"></div>
+      <div id="fader_fader"></div>
 
       <div id="boothheader" class="p_lyrics clickable">
         <div style="padding-left: 100px;">Click "allow" and then here to begin karaoke.</div>

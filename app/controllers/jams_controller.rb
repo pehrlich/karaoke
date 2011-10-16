@@ -33,7 +33,7 @@ class JamsController < ApplicationController
     unless params[:jam][:new_archive_id].present?
       flash[:alert] = "Error saving video"
       logger.warn "Cannot create archive w/o archive id"
-      redirect_to '/'
+      redirect_to '/record'
       return
     end
 

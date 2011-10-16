@@ -6,34 +6,40 @@
 
 $.fn.qcard = (words, offset) ->
   qcard = this
-  totalOffset = 14722 # px
+  stretchFactor = 1.5
+  totalOffset = 14722 * stretchFactor # px
   # $('#boothheader > div:last').css('left') --  14600
   # $('#boothheader > div:last').width()           122
 
-  # 13000 just a shy too slow, about 800px loss over 13000 = 16%
   totalTime = 1000 * 73 # msec
   rate =  totalOffset  / totalTime # px/msec
 
-  #todo: unbind all
-  this.html('') # no workie
-  console.log(this, this.html())
+
+  this.html('')
 
   factor = 1000 * 0.2
 
   for word in words
     do (word) ->
       console.log word, word.text, word.time
-      wordOffset = factor * (word.time.begin + 5) # px/msec * sec * (msec/sec)
+      wordOffset = factor * stretchFactor * (word.time.begin + 4.5) # px/msec * sec * (msec/sec)
       length = ( word.time.end - word.time.begin ) * factor
       console.log('offset, length', wordOffset, length)
 
-      qcard.append("<div style='left: #{wordOffset}px; min-width: #{length}px' class='word'>#{word.text}</div>")
+      qcard.append("<div style='left: #{wordOffset}px; min-width: #{length}px' class='word #{word.text}'>#{word.text.replace(/\s/g, '&nbsp;')}</div>")
 
+  $('.Florida').css({minWidth: '251px'}); # what the fuck?
 
+  this.unbind('qcard:start')
+  this.unbind('qcard:stop')
+  this.unbind('qcard:reset')
+  this.unbind('qcard:restart')
 
   this.bind 'qcard:start', () ->
     console.log 'qcard starting'
     $(this).animate({left: "-#{totalOffset}px" }, totalTime , 'linear')
+    $("#fader").show()
+    $("#fader_fader").show()
     setTimeout( () ->
       console.log 'starting audio'
       $('#qaudio').get(0).play()

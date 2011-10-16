@@ -5,14 +5,14 @@ srt2json = {
   },
   parseTimeRow: function(string) {
     var res = string.match(/(.*)\s--\>\s(.*)/);
-    console.log('time row', string, res);
+//    console.log('time row', string, res);
     return({
       begin: this.parseTime(res[1]),
       end: this.parseTime(res[2])
     });
   },parseSubBlok: function(string) {
     var res = string.match(/\n?\d*\n(.*)\n(.*)(\n)*/);
-    console.log('sub block', string, res);
+//    console.log('sub block', string, res);
     block = {
       text: res[2],
       time: this.parseTimeRow(res[1])
