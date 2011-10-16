@@ -9,8 +9,9 @@ class JamsController < ApplicationController
   end
 
   def new
-    @jam = Jam.new
-    render 'page2'
+    session[:my_jam_id] = nil
+    session[:my_archive_id] = nil
+    redirect_to '/record'
   end
 
   def edit

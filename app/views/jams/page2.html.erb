@@ -28,7 +28,6 @@
       border-bottom: 4px solid white;
     }
 
-
     .hud {
       margin-left: 100px;
     }
@@ -119,6 +118,13 @@
 <% end %>
 
 <audio id="qaudio" src="/assets/music/adam-mix.mp3" preload="auto" autobuffer></audio>
+
+
+<audio id="qaudio" preload="auto" autobuffer>
+  <source src="/assets/music/adam-mix.mp3"/>
+  <source src="/assets/music/adam-mix.ogg"/>
+</audio>
+
 <audio id="beep_audio" src="/assets/sound/beep.wav" preload="auto" autobuffer></audio>
 
 
@@ -202,7 +208,7 @@
 
     <li><a href="<%= page1_path %>" class="backglow"><span></span></a></li>
     <li>
-      <a href="#" onclick="save_jam.submit();" class="performglow"><span></span></a>
+      <a href="#" onclick="submitForm();" class="performglow"><span></span></a>
     </li>
   </ul>
 
@@ -212,21 +218,14 @@
     <%= f.hidden_field :jam_id, {:value => session[:my_jam_id]} %>
 
     <%= f.hidden_field :new_archive_id %>
-
-    <%#= f.submit 'abc', {:TYPE => "image", :SRC => "assets/performbutton.png"} %>
   <% end %>
 
   <script type="text/javascript">
-    $("#save_jam").validate(
-      {
-        submitHandler: function() {
-          console.log($('#jam_new_archive_id').val().length)
-          if ($('#jam_new_archive_id').val().length === 0) {
-            alert('Record your take, first!');
-          } else {
-            $("#save_jam").get(0).submit();
-          }
-        }})
+    submitForm = function() {
+        saveArchive();
+        return false;
+    }
+
   </script>
 
 </div>

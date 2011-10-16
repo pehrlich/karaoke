@@ -22,10 +22,13 @@ window.showRecorder = function() {
     console.log('archive saved', archiveId);
 
     $("#jam_new_archive_id").val(archiveId)
-    // todo: flash button here
 
     $("#save_jam").submit();
   });
+}
+
+window.saveArchive = function(){
+  recorder.saveArchive();
 }
 
 window.showPlayer = function(archiveId, elem_id) {
