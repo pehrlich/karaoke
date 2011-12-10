@@ -54,7 +54,7 @@ class JamsController < ApplicationController
 
 
       # save arhive backup
-      Plam.create(attributes)
+      Archive2.create(attributes)
 
       respond_with @jam
     else

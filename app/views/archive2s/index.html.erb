@@ -1,0 +1,28 @@
+<h1>Archives</h1>
+
+<% if collection.present? %>
+  <table>
+    collection: <%= collection.inspect %>
+  <% attributes = resource_class.fields %>
+    fields: <%= attributes.first.first %>
+  <th>
+    <% attributes.each do |attribute| %>
+      <%= resource_class.human_attribute_name(attribute) %>
+    <% end %>
+  </th>
+  <% collection.each do |archive| %>
+    <tr>
+      <% attributes.each do |attribute| %>
+        <td>
+          <%#= attributes.inspect %>
+          <%#= archive.public_send(attribute).to_s.truncate(20) %>
+        </td>
+      <% end %>
+      <td>
+        <%= link_to 'show', resource_path(archive) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<% end %>
+

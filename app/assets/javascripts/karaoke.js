@@ -29,6 +29,7 @@ window.showRecorder = function() {
 
 window.saveArchive = function(){
   recorder.saveArchive();
+
 }
 
 window.showPlayer = function(archiveId, elem_id) {

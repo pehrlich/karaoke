@@ -3,7 +3,7 @@ class Jam
   include Mongoid::Timestamps
 
 
-  embeds_many :archives
+  embeds_many :archive2s
 
   index "archives.user_id"
 
